@@ -11,5 +11,5 @@ Repozytorium zawiera prace domowe z kursu Data Science
 
 ## Organizacja
 
-Każda praca domowa znajduje się w osobnym pliku.
+Każda praca domowa znajduje się w osobnym folderze.
 Repozytorium będzie uzupełniane w trakcie nauki. 
