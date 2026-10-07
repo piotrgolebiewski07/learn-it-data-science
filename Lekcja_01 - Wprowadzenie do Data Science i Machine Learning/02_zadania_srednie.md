@@ -40,9 +40,9 @@ które zapewnia wystarczającą jakość przy mniejszym zużyciu zasobów.
 
 ## Zadanie 10 - Analiza trade-off: dokładność vs energia
 
-![Arkusz z tabelą i wykresem](zadanie_10_tabela.png)
+![Arkusz z tabelą i wykresem](materialy/zadanie_10_tabela.png)
 
-![Dokładność modeli a zużycie energii](zadanie_10_wykres.png)
+![Dokładność modeli a zużycie energii](materialy/zadanie_10_wykres.png)
 
 - Model 1 warto wybrać gdy najważniejsze jest małe zużycie energii, a dokładnośc 75% jest wystarczająca. 
 Ten model nada się dla aplikacji mobilnej, gdyż nie będzie prądożerny.
@@ -84,7 +84,7 @@ Dopiero bardziej złożony model mógłbym stosować w przypadkach podejrzanych.
 jako podejrzany.
 - ML: model uczy się na komentarzach oznaczonych jako obraźliwe lub nieobraźliwe, a następnie klasyfikuje nowe komentarze.
 
-![Porównanie reguł i ML](zadanie_11_tabela.png)
+![Porównanie reguł i ML](materialy/zadanie_11_tabela.png)
 
 Wybrałbym Machine Learning, ponieważ może wykrywać obraźliwe wypowiedzi, których nie ma na liście zakazanych zwrotów.
 Początkowo wymaga przygotowania danych i treningu, a później kontroli wyników oraz aktualizacji.
