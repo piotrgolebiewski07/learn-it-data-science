@@ -1,14 +1,30 @@
-# Zadanie 1, 2, 3 - zrobione
+# Zadania łatwe
 
-# Zadanie 4
-git branch feature-data-loadaing
-git branch feature-preprocessing
-git checkout feature-data-loading
+## Zadanie 1, 2, 3 - zrobione
 
-cd Lekcja_03_Kontrola_wersji_i_GitHub
-cd materialy
-echo "" > load_data.py
-cd ..
-git  add .
-git commit -m "Dodano plik load_data.py"
+## Zadanie 4
+
+- git branch feature-data-loading
+- git branch feature-preprocessing
+- git checkout feature-data-loading
+
+- cd Lekcja_03_Kontrola_wersji_i_GitHub
+- cd materialy
+- echo "" > load_data.py
+- cd ..
+- git  add .
+- git commit -m "Dodano plik load_data.py"
+- git checkout main
+- git branch
+
+## Zadanie 5
+
+- git merge feature-data-loading 
+- git branch -d feature-data-loading
+
+## Zadanie 6 i 7 - zrobione
+
+## Zadanie 8 
+
+
 

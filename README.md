@@ -7,6 +7,7 @@ Repozytorium zawiera prace domowe z kursu Data Science
 - Python
 - Analiza i przetwarzanie danych
 - Wizualizacja danych
+- Git i GithHub
 - Machine Learning
 
 ## Organizacja
