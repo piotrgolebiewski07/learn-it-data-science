@@ -26,5 +26,13 @@
 
 ## Zadanie 8 
 
+- edytowałem plik README dodając linijkę  (- Git i GitHub)
+- git diff
+- git commit -m "Zmiana README"
+- git push 
+- git diff HEAD~1 HEAD 
+
+
+
 
 
