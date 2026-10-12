@@ -32,6 +32,15 @@
 - git push 
 - git diff HEAD~1 HEAD 
 
+# Zadania trudne
+
+## Zadanie 13
+
+Stworzyłem stronę internetową, na której będę zamieszczał kolejne projekty związane z Data Science i Machine Learning.
+Wdrożyłem ją na AlwaysData i podłączyłem własną domenę.
+
+Adres strony:
+- mlprojects.pl
 
 
 
