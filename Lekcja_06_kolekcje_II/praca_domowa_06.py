@@ -138,23 +138,112 @@ zbior_kwartaly = set(kwartaly)
 print(zbior_kwartaly)
 
 print(len(zbior_kwartaly))
-'''
+
 #################################################
 print(sep, "Zadanie 9", sepa)
 #################################################
+
+domyslne = {'lr': 0.01, 'epochs': 100, 'optimizer': 'sgd', 'batch_size': 32}
+uzytkownika = {'lr': 0.001, 'batch_size': 64, 'momentum': 0.9}
+
+slownik_polaczony_1 = domyslne | uzytkownika
+print(slownik_polaczony_1)
+
+slownik_polaczony_2 = domyslne.copy()
+slownik_polaczony_2.update(uzytkownika)
+print(slownik_polaczony_2)
+
+print(slownik_polaczony_1 == slownik_polaczony_2)
+
+print(f"lr: {slownik_polaczony_1.get('lr')}\n"
+      f"batch_size: {slownik_polaczony_1.get('batch_size')}\n"
+      f"momentum: {slownik_polaczony_1.get('momentum')}\n")
 
 #################################################
 print(sep, "Zadanie 10", sepa)
 #################################################
 
+dataset_a = {'wiek', 'plec', 'miasto', 'dochod', 'wyksztalcenie', 'stan_cywilny'}
+dataset_b = {'wiek', 'plec', 'miasto', 'pensja', 'stanowisko', 'staz'}
+
+czesc_wspolna = dataset_a.intersection(dataset_b)
+print(czesc_wspolna)
+
+tylko_a = dataset_a.difference(dataset_b)
+print(tylko_a)
+
+tylko_b = dataset_b.difference(dataset_a)
+print(tylko_b)
+
+suma = dataset_a.union(dataset_b)
+print(suma)
+
+roznica_symetryczna = dataset_a.symmetric_difference(dataset_b)
+print(roznica_symetryczna)
+
+print({'wiek', 'plec'}.issubset(czesc_wspolna))
+
 #################################################
 print(sep, "Zadanie 11", sepa)
 #################################################
+
+raport = {
+      'Q1': {'przychod': 120_000, 'koszt': 80_000},
+      'Q2': {'przychod': 145_000, 'koszt': 92_000},
+      'Q3': {'przychod': 138_000, 'koszt': 88_000},
+      'Q4': {'przychod': 167_000, 'koszt': 101_000}
+      }
+
+print(f"Q1: {raport.get('Q1').get('przychod')}\n"
+      f"Q2: {raport.get('Q2').get('przychod')}\n"
+      f"Q3: {raport.get('Q3').get('przychod')}\n"
+      f"Q4: {raport.get('Q4').get('przychod')}")
+
+raport['Q1']['zysk'] = raport['Q1']['przychod']-raport['Q1']['koszt']
+raport['Q2']['zysk'] = raport['Q2']['przychod']-raport['Q2']['koszt']
+raport['Q3']['zysk'] = raport['Q3']['przychod']-raport['Q3']['koszt']
+raport['Q4']['zysk'] = raport['Q4']['przychod']-raport['Q4']['koszt']
+print(f"Q1 | {raport['Q1']['przychod']:>8} | {raport['Q1']['koszt']:>8} | {raport['Q1']['zysk']:>8}\n"
+      f"Q2 | {raport['Q2']['przychod']:>8} | {raport['Q2']['koszt']:>8} | {raport['Q2']['zysk']:>8}\n"
+      f"Q3 | {raport['Q3']['przychod']:>8} | {raport['Q3']['koszt']:>8} | {raport['Q3']['zysk']:>8}\n"
+      f"Q4 | {raport['Q4']['przychod']:>8} | {raport['Q4']['koszt']:>8} | {raport['Q4']['zysk']:>8}\n")
+
+print(raport)
+lista_zyskow = [
+      raport.get('Q1').get('zysk'),
+      raport.get('Q2').get('zysk'),
+      raport.get('Q3').get('zysk'),
+      raport.get('Q4').get('zysk')
+]
+print(lista_zyskow)
+print(f"Suma zysków: {sum(lista_zyskow)}")
+print(f"Minimum: {min(lista_zyskow)}")
+print(f"Maksimum: {max(lista_zyskow)}")
+print(f"Średnia: {sum(lista_zyskow) / len(lista_zyskow)}")
 
 #################################################
 print(sep, "Zadanie 12", sepa)
 #################################################
 
+rekord = ('setosa', 5.1, 3.5, 1.4, 0.2)
+
+gatunek, sl, sw, pl, pw = rekord
+rekord_slownik = {
+      'species': gatunek,
+      'sepal_length': sl,
+      'sepal_width': sw,
+      'petal_length': pl,
+      'petal_width': pw
+}
+#print(f"{species:<13} :{gatunek:<13}")
+print(f"{list(rekord_slownik.keys())[0]:<13}: {rekord_slownik['species']:>5}")
+print(f"{list(rekord_slownik.keys())[1]:<13}: {sl:>5.1f}")
+print(f"{list(rekord_slownik.keys())[2]:<13}: {sw:>5.1f}")
+print(f"{list(rekord_slownik.keys())[3]:<13}: {pl:>5.1f}")
+print(f"{list(rekord_slownik.keys())[4]:<13}: {pw:>5.1f}")
+
+print(f"Suma cech: {sum(rekord[1:])}")
+'''
 #################################################
 print(sep, "Zadanie 13", sepa)
 #################################################
