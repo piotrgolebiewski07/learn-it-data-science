@@ -203,3 +203,6 @@ print(f"Czas: {czas:.2f} s = {(czas / 60):.2f} min, {(czas / 3600):.2f} h (przy 
 
 print(f"Szacowany czas: {math.floor(czas/3600)} h {math.floor(czas / 60) % 60} min {round(((czas % 3600)/60-(math.floor(czas / 60) % 60))*60)} s")
 
+# ---------- Zadanie 12
+print(sep, "Zadanie 12", sepa)
+
