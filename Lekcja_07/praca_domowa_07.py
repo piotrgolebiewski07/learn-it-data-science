@@ -169,36 +169,178 @@ for pesel in pesele:
     else:
         print(f"PESEL {pesel}: błędny format (długość {len(pesel)})")
 
-'''
 #################################################
 print(sep, "Zadanie 13", sepa)
 #################################################
+
+trening = [(1.5, 'A'), (2.3, 'A'), (3.8, 'B'), (4.2, 'B'), (5.1, 'B')]
+x_nowy = 3.5
+
+lista_treningowa = [(abs(x_nowy - x), klasa) for x, klasa in trening]
+nowa_lista_treningowa = sorted(lista_treningowa)
+
+k = 3
+klasa_a = 0
+klasa_b = 0
+
+for i in range(k):
+    if nowa_lista_treningowa[i][1] == "A":
+        klasa_a += 1
+    else:
+        klasa_b += 1
+
+print(f"Klasa A: {klasa_a}")
+print(f"Klasa B: {klasa_b}")
+
+print(nowa_lista_treningowa[:k])
+
+print(f"Przewidywana klasa to: {'A' if klasa_a > klasa_b else 'B'}")
 
 #################################################
 print(sep, "Zadanie 14", sepa)
 #################################################
 
+wzrost = [165, 170, 175, 180, 185]
+waga = [60, 65, 70, 75, 80]
+
+sr_x = sum(wzrost) / len(wzrost)
+print(sr_x)
+
+sr_y = sum(waga) / len(waga)
+print(sr_y)
+
+sum_xy = 0
+sum_x2 = 0
+sum_y2 = 0
+
+for i in range(len(wzrost)):
+    sum_xy += (wzrost[i] - sr_x) * (waga[i] - sr_y)
+    sum_x2 += (wzrost[i] - sr_x) ** 2
+    sum_y2 += (waga[i] - sr_y) ** 2
+
+r = sum_xy / (sum_x2 * sum_y2) ** 0.5
+print(f"{r:.4f}")
+
 #################################################
 print(sep, "Zadanie 15", sepa)
 #################################################
+
+wyniki = [78, 82, 85, 88, 90, 92, 95, 97, 99, 45, 101, 103, 105, 180]
+
+posort = sorted(wyniki)
+print(posort)
+
+Q1 = posort[len(posort) // 4]
+print(f"Q1 = {Q1}")
+
+Q3 = posort[3 * len(posort) // 4]
+print(f"Q3 = {Q3}")
+
+IQR = Q3 - Q1
+print(f"IQR = {IQR}")
+
+granice = [Q1 - 1.5 * IQR, Q3 + 1.5 * IQR]
+print(f"Granice dolna i górna: {granice}")
+
+outliers = [x for x in wyniki if x < granice[0] or x > granice[1]]
+print(f"Lista outliers: {outliers}")
 
 #################################################
 print(sep, "Zadanie 16", sepa)
 #################################################
 
+import math
+n = 1_000_000
+suma = 0
+
+for i in range(n):
+    licznik = (-1) ** i
+    mianownik = 2 * i + 1
+    suma += licznik / mianownik
+
+aproksymacja_liczby_pi = suma * 4
+print(f"Wyliczona liczba pi: {aproksymacja_liczby_pi:.6f}")
+liczba_pi = math.pi
+print(f"Liczba pi: {round(liczba_pi, 6)}")
+
+blad = abs(aproksymacja_liczby_pi - round(liczba_pi, 6))
+print(f"Błąd: {blad:.6f}")
+
 #################################################
 print(sep, "Zadanie 17", sepa)
 #################################################
+
+a = 252
+b = 105
+
+iteracje = 0
+while b != 0:
+    a, b = b, a % b
+    iteracje += 1
+
+print(f"NWD = {a}")
+print(f"Liczba iteracji: {iteracje}")
 
 #################################################
 print(sep, "Zadanie 18", sepa)
 #################################################
 
+dane = [12, 15, 18, 22, 25, 28, 31, 35, 38, 42, 45, 48, 52, 55, 58]
+granice = [10, 20, 30, 40, 50, 60]
+biny = [0, 0, 0, 0, 0]
+
+for x in dane:
+    for i in range(5):
+        if granice[i] <= x < granice[i+1]:
+            biny[i] += 1
+            break
+
+for i in range(len(biny)):
+    print(f"[{granice[i]}, {granice[i+1]}): {'*' * biny[i]}")
+
 #################################################
 print(sep, "Zadanie 19", sepa)
 #################################################
 
+stany = ['A', 'B', 'A', 'A', 'C', 'B', 'C', 'A', 'B', 'B']
+
+unikalne = sorted(set(stany))
+przejscia = {}
+
+for i in unikalne:
+    for j in unikalne:
+        przejscia.setdefault(i, {}).setdefault(j, 0)
+
+print(przejscia)
+
+for i in range(len(stany)-1):
+    przejscia[stany[i]][stany[i+1]] += 1
+
+print(przejscia)
+print("  A B C")
+for i in unikalne:
+    print(i, end=" ")
+    for j in unikalne:
+        print(przejscia[i][j], end=" ")
+    print()
+
 #################################################
 print(sep, "Zadanie 20", sepa)
 #################################################
-'''
+
+dane = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+min_dane = dane[0]
+max_dane = dane[0]
+
+for i in dane:
+    if min_dane > i:
+        min_dane = i
+    if max_dane < i:
+        max_dane = i
+
+z_norm = [(x - min_dane) / (max_dane - min_dane) for x in dane]
+print(z_norm)
+print("Wyniki weryfikacji:")
+print(z_norm[0], z_norm[0] == 0.0)
+print(z_norm[-1], z_norm[-1] == 1.0)
