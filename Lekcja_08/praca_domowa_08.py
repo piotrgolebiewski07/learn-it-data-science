@@ -116,7 +116,7 @@ print(slownik_dlugosci)
 
 
 ####################################
-print("---", "Zadanie 8", "---")
+print("\n---", "Zadanie 8", "---")
 ####################################
 
 liczby = [-5, 3, -2, 8, 0, -1, 7, 4, -9, 6]
@@ -126,3 +126,110 @@ print(dodatnie)
 
 podwojone = list(map(lambda x: x * 2, dodatnie))
 print(podwojone)
+
+####################################
+print("\n---", "Zadanie 9", "---")
+####################################
+
+wynagrodzenia = [3500, 4200, 5800, 7200, 9500, 4800, 6100]
+wynagrodzenia = sorted(wynagrodzenia)
+
+
+def normalize_minmax_for(dane, zaokraglenie=3):
+
+    minimum = min(dane)
+    maksimum = max(dane)
+
+    zakres = maksimum - minimum
+    znormalizowane = []
+
+    for i in dane:
+        norma = (i - minimum) / zakres
+        znormalizowane.append(round(norma, zaokraglenie))
+
+    return znormalizowane
+
+
+def normalize_minmax_comprehension(dane, zaokraglenie=3):
+    minimum = min(dane)
+    maksimum = max(dane)
+
+    zakres = maksimum - minimum
+    return [round(((i - minimum) / zakres), zaokraglenie) for i in dane]
+
+print(f"Oryginalne wynagrodzenia: {wynagrodzenia}")
+print(f"Normalizacja wynagrodzeń (for) : {normalize_minmax_for(wynagrodzenia)}")
+print(f"Normalizacja wynagrodzeń (comprehension) : {normalize_minmax_comprehension(wynagrodzenia)}")
+
+
+####################################
+print("\n---", "Zadanie 10", "---")
+####################################
+
+transakcje = [
+    {"produkt": "laptop", "wartosc": 2999},
+    {"produkt": "mysz", "wartosc": 89},
+    {"produkt": "laptop", "wartosc": 2999},
+    {"produkt": "klawiatura", "wartosc": 249},
+    {"produkt": "mysz", "wartosc": 89},
+    {"produkt": "mysz", "wartosc": 89}
+]
+
+grouped = {}
+for transakcja in transakcje:
+    grouped.setdefault(transakcja["produkt"], 0)
+    grouped[transakcja["produkt"]] += transakcja["wartosc"]
+
+print(grouped)
+
+
+####################################
+print("\n---", "Zadanie 11", "---")
+####################################
+
+klienci = [
+    {"id": 1, "wiek": 25, "dochod": 4500},
+    {"id": 2, "wiek": 45, "dochod": 9200},
+    {"id": 3, "wiek": 32, "dochod": 6800},
+    {"id": 4, "wiek": 28, "dochod": 5200},
+    {"id": 5, "wiek": 55, "dochod": 12000}
+]
+
+
+def kat_wiekowa(wiek):
+    if wiek < 30:
+        return "młody"
+    elif wiek <= 50:
+        return "średni"
+    else:
+        return "starszy"
+
+
+def kat_dochod(dochod):
+    if dochod < 5000:
+        return "niski"
+    elif dochod <= 10000:
+        return "średni"
+    else:
+        return "wysoki"
+
+
+klienci_wiek = [{**k, "kat_wiekowa": kat_wiekowa(k["wiek"])} for k in klienci]
+print(klienci_wiek)
+
+klienci_dochod = [{**k, "kat_dochodu": kat_dochod(k["dochod"])} for k in klienci_wiek]
+print(klienci_dochod)
+
+
+####################################
+print("\n---", "Zadanie 12", "---")
+####################################
+
+tabela_mnozenia = [[i * j for j in range(1, 11)] for i in range(1, 11)]
+print("Macierz 10x10:")
+
+for wiersz in tabela_mnozenia:
+    print(" ".join(f"{x:3d}" for x in wiersz))
+
+
+
