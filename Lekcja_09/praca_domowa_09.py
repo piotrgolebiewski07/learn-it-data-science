@@ -271,3 +271,241 @@ zadania[4].oznacz_jako_zrobione()
 
 for zadanie in zadania:
     print(zadanie)
+
+####################################
+print("---", "Zadanie 9", "---")
+####################################
+
+
+class FiltrowanieDodatnich():
+    def wykonaj(self, dane):
+        return [i for i in dane if i >= 0]
+
+
+class Zaokraglenie():
+    def wykonaj(self, dane):
+        return [round(i) for i in dane]
+
+
+class Skalowanie():
+    def __init__(self, liczba):
+        self.liczba = liczba
+
+    def wykonaj(self, dane):
+        return [i * self.liczba for i in dane]
+
+
+class Sumowanie():
+    def wykonaj(self, dane):
+        return sum(dane)
+
+
+class Pipeline:
+    def __init__(self, nazwa):
+        self.nazwa = nazwa
+        self.kroki = []
+
+    def dodaj_krok(self, krok):
+        self.kroki.append(krok)
+
+    def uruchom(self, dane):
+        wynik = dane
+        for krok in self.kroki:
+            wynik = krok.wykonaj(wynik)
+        return(wynik)
+
+dane = [1.7, -3.2, 5.8, -1.1, 8.3, 2.4]
+
+pipeline = Pipeline("Przetwarzanie")
+pipeline.dodaj_krok(FiltrowanieDodatnich())
+pipeline.dodaj_krok(Zaokraglenie())
+pipeline.dodaj_krok(Skalowanie(5))
+pipeline.dodaj_krok(Sumowanie())
+
+wynik = pipeline.uruchom(dane)
+print(wynik)
+
+
+####################################
+print("---", "Zadanie 10", "---")
+####################################
+
+
+class Produkt():
+    def __init__(self, nazwa, cena):
+        self.nazwa = nazwa
+        self.cena = cena
+
+
+class Zamowienie():
+    def __init__(self):
+        self.lista_produktow = []
+
+    def dodaj_produkt(self, produkt, ilosc):
+        znaleziono = False
+
+        for i in self.lista_produktow:
+            if i["produkt"].nazwa == produkt.nazwa:
+                i["ilość"] += ilosc
+                znaleziono = True
+        if not znaleziono:
+            self.lista_produktow.append({
+                "produkt": produkt,
+                "ilość": ilosc
+            })
+
+
+    def laczna_wartosc(self):
+        suma = 0
+        for i in self.lista_produktow:
+            suma += i['produkt'].cena * i['ilość']
+        return suma
+
+    def pokaza_zamowienie(self):
+        print("--- ZAMÓWIENIE ---\n")
+        for i in self.lista_produktow:
+            print(f"{i['produkt'].nazwa}\n"
+                  f"Ilość: {i['ilość']}\n"
+                  f"Cena za sztukę: {i['produkt'].cena} zł\n"
+                  f"Wartość: {i['ilość'] * i['produkt'].cena} zł\n"
+                  )
+        print(f"Łączna wartośc zamówienia: {self.laczna_wartosc()} zł")
+
+produkt1 = Produkt("Laptop", 3500)
+produkt2 = Produkt("Monitor", 1200)
+produkt3 = Produkt("Klawiatura", 250)
+produkt4 = Produkt("Mysz", 100)
+produkt5 = Produkt("Słuchawki", 300)
+
+zamowienie = Zamowienie()
+zamowienie.dodaj_produkt(produkt1, 3)
+zamowienie.dodaj_produkt(produkt2, 2)
+zamowienie.dodaj_produkt(produkt3, 1)
+zamowienie.dodaj_produkt(produkt4, 2)
+zamowienie.dodaj_produkt(produkt5, 1)
+zamowienie.dodaj_produkt(produkt1, 2)
+
+zamowienie.pokaza_zamowienie()
+
+####################################
+print("---", "Zadanie 11", "---")
+####################################
+
+
+class Uczen():
+    def __init__(self, imie, oceny=[]):
+        self.imie = imie
+        self.oceny = oceny
+
+
+class Klasa():
+    def __init__(self, nazwa):
+        self.nazwa = nazwa
+        self.uczniowie = []
+
+    def dodaj_ucznia(self, uczen):
+        znaleziono = False
+
+        for i in self.uczniowie:
+            if uczen.imie == i.imie:
+                znaleziono = True
+                print("Uczeń już istnieje.")
+
+        if not znaleziono:
+            self.uczniowie.append(uczen)
+
+    def srednia_klasy(self):
+        suma = 0
+        ilosc_ocen = 0
+
+        for i in self.uczniowie:
+            suma += sum(i.oceny)
+            ilosc_ocen += len(i.oceny)
+
+        if ilosc_ocen == 0:
+            print("Brak ocen")
+            return None
+
+        return suma / ilosc_ocen
+
+    def najlepszy_uczen(self):
+
+        if self.uczniowie == []:
+            return None
+
+        najlepszy = self.uczniowie[0]
+        srednia_najlepszego = None
+
+        for i in self.uczniowie:
+            suma = sum(i.oceny)
+            ilosc_ocen = len(i.oceny)
+
+            if ilosc_ocen == 0:
+                continue
+            srednia = suma / ilosc_ocen
+
+            if srednia_najlepszego is None or srednia_najlepszego < srednia:
+                srednia_najlepszego = srednia
+                najlepszy = i
+
+        return najlepszy, srednia_najlepszego
+
+
+uczen1 = Uczen("Paweł", [3, 5, 2, 4])
+uczen2 = Uczen("Piotr", [4, 5, 6])
+uczen3 = Uczen("Karolina", [5, 6, 3, 5])
+uczen4 = Uczen("Adam", [3, 4, 4, 5])
+uczen5 = Uczen("Laura", [6, 6, 5, 6])
+
+klasa1 = Klasa("5A")
+klasa1.dodaj_ucznia(uczen1)
+klasa1.dodaj_ucznia(uczen2)
+klasa1.dodaj_ucznia(uczen3)
+klasa1.dodaj_ucznia(uczen4)
+klasa1.dodaj_ucznia(uczen5)
+
+print(f"Średnia klasy: {klasa1.srednia_klasy():.2f}")
+najlepszy, srednia = klasa1.najlepszy_uczen()
+
+print(f"Najlepszy uczeń: {najlepszy.imie}")
+print(f"Jego średnia: {srednia:.2f}")
+
+####################################
+print("---", "Zadanie 11", "---")
+####################################
+
+
+class Figura():
+    def pole(self):
+        return f"Obliczamy pole:"
+
+
+class Prostokat(Figura):
+    def __init__(self, szerokosc, wysokosc):
+        self.szerokosc = szerokosc
+        self.wysokosc = wysokosc
+
+    def pole(self):
+        return self.szerokosc * self.wysokosc
+
+
+class Kolo(Figura):
+    def __init__(self, promien):
+        self.promien = promien
+
+    def pole(self):
+        return 3.14 * self.promien * self.promien
+
+
+figury = [
+    Prostokat(5, 4),
+    Kolo(3),
+    Prostokat(2, 6),
+    Kolo(5)
+]
+
+pole = 0
+for figura in figury:
+    pole += figura.pole()
+
+print(pole)
