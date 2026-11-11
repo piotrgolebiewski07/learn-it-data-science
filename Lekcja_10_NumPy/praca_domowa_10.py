@@ -1,4 +1,4 @@
-'''import numpy as np
+import numpy as np
 
 ####################################
 print("---", "Zadanie 1", "---")
@@ -269,13 +269,11 @@ counts, _ = np.histogram(data_bez_out, bins=bins)
 for i in range(len(bins)-1):
     bars = "█" * counts[i]
     print(f"Przedział od {bins[i]:^6} do {bins[i+1]:^6}: {bars}")
-'''
 
 ####################################
 print("\n---", "Zadanie 14", "---")
 ####################################
 
-import numpy as np
 x = np.linspace(-1, 1, 1000)
 y = np.linspace(-1, 1, 1000)
 X, Y = np.meshgrid(x, y) # meshgrid daje dwie macierze
@@ -472,7 +470,6 @@ print()
 min_norm = np.min(batch_norm[:, [0]])
 max_norm = np.max(batch_norm[:, [0]])
 
-
 bins = np.linspace(min_norm, max_norm, 7)
 print("Histogram pp normalizacji:")
 counts, _ = np.histogram(batch_norm[:, 0], bins=bins)
@@ -481,10 +478,9 @@ for i in range(len(bins) - 1):
     print(f"Przedział od {bins[i]:^19} do {bins[i+1]:^19}: {bars}")
 print()
 
-# Hisotgram po normalizacji
+# Hisotgram po transformacji
 min_output = np.min(output[:, [0]])
 max_output = np.max(output[:, [0]])
-
 
 bins = np.linspace(min_output, max_output, 7)
 print("Histogram pp transformacji:")
