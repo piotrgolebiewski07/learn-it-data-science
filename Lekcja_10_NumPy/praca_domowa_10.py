@@ -169,12 +169,11 @@ mnoznik = np.array([[1.0],
            [1.15],
            [1.0]])
 print(f"Exams * mnoznik:\n{(exams + bonus) * mnoznik}")
-'''
+
 ####################################
 print("\n---", "Zadanie 11", "---")
 ####################################
 
-import numpy as np
 np.random.seed(3)
 sales = np.random.randint(50, 200, size=(6, 28))
 print(sales)
@@ -219,21 +218,277 @@ for i in range(4):
 
 print(zerowa)
 
+####################################
+print("\n---", "Zadanie 13", "---")
+####################################
+
+np.random.seed(42)
+data = np.concatenate([np.random.randn(100) * 10 + 50, np.array([150, -50, 200, -100, 180])])
+np.random.shuffle(data)
+print(f"Dane przed standaryzacją:\n{data}\n")
+
+srednia = np.mean(data)
+odchylenie = np.std(data)
+z_score = (data - srednia) / odchylenie
+print(f"Dane po standaryzacji:\n{np.round(z_score, 3)}\n")
+
+outliery = z_score[abs(z_score) > 3]
+print(f"Outliery: {np.round(outliery, 3)}")
+
+data_bez_out = data[abs(z_score) <= 3]
+srednia_bez_out = np.mean(data_bez_out)
+odchylene_bez_out = np.std(data_bez_out)
+z_score_bez_out = (data_bez_out - srednia_bez_out) / odchylene_bez_out
+print(f"\nDane po standaryzacji bez outlierów:\n{np.round(z_score_bez_out, 3)}\n")
+
+print(f"Statystyki przed:"
+    f"Średnia: {srednia}\n"
+    f"Odchylenie: {odchylenie}\n"
+    f"Wartość min: {np.min(data)}\n"
+    f"Wartośc max: {np.max(data)}\n"
+    f"Liczba elementów: {len(data)}\n")
+
+print(f"Statystyki po:"
+    f"Średnia: {srednia_bez_out}\n"
+    f"Odchylenie: {odchylene_bez_out}\n"
+    f"Wartość min: {np.min(data_bez_out)}\n"
+    f"Wartość max: {np.max(data_bez_out)}\n"
+    f"Liczba elementów: {len(data_bez_out)}\n")
+
+print("Histogram przed:")
+bins = np.round(np.linspace(np.min(data), np.max(data), 31), 2)
+counts, _ = np.histogram(data, bins=bins)
+
+for i in range(len(bins)-1):
+    bars = "█" * counts[i]
+    print(f"Przedział od {bins[i]:^6} do {bins[i+1]:^6}: {bars}")
+
+print("Histogram po:")
+counts, _ = np.histogram(data_bez_out, bins=bins)
+
+for i in range(len(bins)-1):
+    bars = "█" * counts[i]
+    print(f"Przedział od {bins[i]:^6} do {bins[i+1]:^6}: {bars}")
+'''
+
+####################################
+print("\n---", "Zadanie 14", "---")
+####################################
+
+import numpy as np
+x = np.linspace(-1, 1, 1000)
+y = np.linspace(-1, 1, 1000)
+X, Y = np.meshgrid(x, y) # meshgrid daje dwie macierze
+punkty_w_kole = np.sum(X ** 2 + Y ** 2 <= 1) #można użyć np.count_nonzero(X ** 2 + Y ** 2 <= 1)
+
+pi = 4 * (punkty_w_kole / (len(x) * len(y)))
+print(pi)
+blad = round(abs(pi - np.pi), 5)
+print(f"Bład jest równy: {blad}")
+
+x = np.linspace(-1, 1, 20)
+y = np.linspace(-1, 1, 20)
+
+X, Y = np.meshgrid(x, y)
+
+punkty_w_kole = X ** 2 + Y ** 2 <= 1
+print(punkty_w_kole)
+print(np.where(punkty_w_kole, "●", "·"))
+
+####################################
+print("\n---", "Zadanie 15", "---")
+####################################
+
+signal = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dtype=float)
+kernel = np.array([0.2, 0.6, 0.2]) # średnia ruchoma ważona
+result = []
+
+for i in range(len(signal) - len(kernel) + 1):
+    result.append(sum(signal[i:i+len(kernel)] * kernel))
+print(np.array(result))
+
+print(f"Sygnał (przed konwolucją)")
+for i in signal:
+    print("■" * int(i))
+
+print(f"Wynik (po konwolucji)")
+for i in result:
+    print("■" * int(i))
+
+####################################
+print("\n---", "Zadanie 16", "---")
+####################################
+
+np.random.seed(5)
+A = np.random.rand(10, 5) # 100 próbek × 50 cech
+
+B = np.random.rand(5, 2) # 50 cech → 20 cech
+
+C = A @ B
+print(f"{C}\n")
+
+D = np.zeros((10,2))
+for i in range(A.shape[0]):
+    for k in range(B.shape[1]):
+        for j in range(A.shape[1]):
+            D[i, k] += A[i, j] * B[j, k]
+
+print(D)
+print(np.allclose(C, D)) #sprawdza czy tablice zwierają takie same wartości (niewielka tolerancja błędu)
+
+####################################
+print("\n---", "Zadanie 17", "---")
+####################################
+
+np.random.seed(6)
+image = np.random.randint(0, 256, size=(100, 100), dtype=np.uint8)
+print(f"Image:\n{image}")
+
+image[image < 128] = 0
+image[image >= 128] = 255
+print(f"\nImage (0, 255):\n{image}")
+
+negatyw = 255 - image
+print(f"\nNegatyw:\n{negatyw}")
+
+pad_image = np.pad(negatyw, ((10, 10), (10, 10)))
+print(f"\nPad image:\n{pad_image}")
+
+print(f"\nShape image: {image.shape}\n"
+    f"Shape negatyw: {negatyw.shape}\n"
+    f"Shape pad_image: {pad_image.shape}\n")
+
+print("Wartości progowe Image:"
+    f"\n{image[:5, :5]}\n"
+    f"\n{image[:5, -5:]}\n"
+    f"\n{image[-5:, :5]}\n"
+    f"\n{image[-5:, -5:]}\n")
+
+print("Wartości progowe negatyw:"
+    f"\n{negatyw[:5, :5]}\n"
+    f"\n{negatyw[:5, -5:]}\n"
+    f"\n{negatyw[-5:, :5]}\n"
+    f"\n{negatyw[-5:, -5:]}\n")
+
+print("Wartości progowe pad_image:"
+    f"\n{pad_image[:5, :5]}\n"
+    f"\n{pad_image[:5, -5:]}\n"
+    f"\n{pad_image[-5:, :5]}\n"
+    f"\n{pad_image[-5:, -5:]}\n")
+
+####################################
+print("\n---", "Zadanie 18", "---")
+####################################
+
+np.random.seed(10)
+data = np.random.rand(50, 2) * 100
+query = np.array([50.0, 50.0])
+
+print(data)
+print(query)
+
+odl = np.round(np.sqrt(np.sum((query-data)**2, axis=1)), 2)
+print(odl)
+
+indeksy_najblizszych = np.argsort(odl)[:5]
+print(odl[indeksy_najblizszych])
+
+lista = ["indeks", "współrzędne", "odległość"]
+print("=" * 55)
+print(f"{lista[0]:^13} {lista[1]:^26} {lista[2]:^15}")
+print("=" * 55)
+for i in indeksy_najblizszych:
+    print(f"{i:^13} {data[i]} {odl[i]:^15}")
+print("=" * 55)
+
+####################################
+print("\n---", "Zadanie 19", "---")
+####################################
+
+np.random.seed(7)
+x = np.linspace(0, 10, 100)
+y = 2 * x**2 - 3 * x + 5 + np.random.randn(100) * 10
+
+jedynki = np.ones((100, 1))
+x_do_potegi = x ** 2
+
+print("Pięć pierwszych wierszy macierzy X:")
+macierz = np.column_stack((jedynki, x, x_do_potegi))
+print(macierz[:5])
+print("Pięć wartośći y:")
+print(y[:5])
+
+print("\nŚrednia i odchylenie standarodwe kolumny x²")
+print(f"Średnia: {sum(macierz[:, 2] / len(macierz[:]))}")
+print(f"Odcylenie standardowe: {np.std(macierz[:, 2])}")
+
+####################################
+print("\n---", "Zadanie 20", "---")
+####################################
+
+np.random.seed(8)
+batch = np.random.randn(32, 10) * 5 + 20
+
+# przed normalizacją
+srednia = np.mean(batch[:], axis=0)
+print(f"Średnia: {srednia}")
+
+odchylenie = np.std(batch[:], axis=0)
+print(f"Odchylenie: {odchylenie}")
+
+# po normalizacji
+batch_norm = (batch - srednia) / odchylenie
+srednia_norm = np.mean(batch_norm[:], axis=0)
+print(f"Średnia po normalizacji: {srednia_norm}")
+
+odchylenie_norm = np.std(batch_norm[:], axis=0)
+print(f"Odchylenie po  normalizacji: {odchylenie_norm}")
+
+# po scale i shift
+gamma = 2.0
+beta = 1.0
+
+output = gamma * batch_norm + beta
+
+srednia_output = np.mean(output[:], axis=0)
+print(f"Średnia po transformacji: {srednia_output}")
+
+odchylenie_output = np.std(output[:], axis=0)
+print(f"Odchylenie po  transformacji: {odchylenie_output}")
+
+# Hisotgram przed
+min_batch = np.min(batch[:, [0]])
+max_batch = np.max(batch[:, [0]])
+
+bins = np.linspace(min_batch, max_batch, 7)
+print("Histogram przed:")
+counts, _ = np.histogram(batch[:, 0], bins=bins)
+for i in range(len(bins) - 1):
+    bars = "█" * counts[i]
+    print(f"Przedział od {bins[i]:^19} do {bins[i+1]:^19}: {bars}")
+print()
+
+# Hisotgram po normalizacji
+min_norm = np.min(batch_norm[:, [0]])
+max_norm = np.max(batch_norm[:, [0]])
 
 
+bins = np.linspace(min_norm, max_norm, 7)
+print("Histogram pp normalizacji:")
+counts, _ = np.histogram(batch_norm[:, 0], bins=bins)
+for i in range(len(bins) - 1):
+    bars = "█" * counts[i]
+    print(f"Przedział od {bins[i]:^19} do {bins[i+1]:^19}: {bars}")
+print()
+
+# Hisotgram po normalizacji
+min_output = np.min(output[:, [0]])
+max_output = np.max(output[:, [0]])
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+bins = np.linspace(min_output, max_output, 7)
+print("Histogram pp transformacji:")
+counts, _ = np.histogram(output[:, 0], bins=bins)
+for i in range(len(bins) - 1):
+    bars = "█" * counts[i]
+    print(f"Przedział od {bins[i]:^19} do {bins[i+1]:^19}: {bars}")
